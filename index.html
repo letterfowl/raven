@@ -5,22 +5,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raven - anotacja danych</title>
+    <title>Raven - narzędzie do anotacji danych</title>
 
-    <link rel="stylesheet" href="style.css">
-    <script defer src="dist/main.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css.min.css"/>
 </head>
 
 <body>
-    <center>
-        W lewo jeśli zła, w prawo jeśli dobra
-    </center>
-        
-    </header>
-    <main id="viewport">
-        <ul class="stack">
-        </ul>
-    </main>
+    <section>
+        <hgroup>
+            <h1>
+                raven
+            </h1>
+            <p>Narzędzie do anotacji haseł krzyżówkowych</p>
+        </hgroup>
+        <article>
+            <h2>
+                Instrukcje
+            </h2>
+            <ol>
+                <li>Używajmy nazwy użytkownika - to pozwala nam wiedzieć, kto odpowiada za którą anotację.</li>
+                <li>Przesunięcie w prawo jest kategoryzowane jako dobre hasło, w lewo jako złe.</li>
+            </ol>
+            <h2>
+                Reguły anotacji
+            </h2>
+            <ol>
+                <li>Nie chcemy w naszej bazie zwykłych definicji</li>
+                <li>Nie chcemy zbyt długich podpowiedzi</li>
+                <li>Błędy ortograficzne i interpunkcyjne w podpowiedziach są okej, kiedyś poprawimy.</li>
+                <li>Podpowiedzi mogą być zestawem podobnych słów, ale nie chcemy synonimów.</li>
+                <li>Nie zwracamy uwagi na trudność podpowiedzi i haseł.</li>
+                <li>Unikamy mocno potocznych podpowiedzi, przykładowo "to takie jakby ...".</li>
+                <li>Podobnie unikamy podpowiedzi niosących mało treści.</li>
+            </ol>
+            <center>
+                <a href=/test.html"><button>Przetestuj</button></a>
+                <a href="/app.html"><button>Rozpocznij</button></a>
+            </center>
+            <h2>
+                Co to?
+            </h2>
+            <p>
+                "raven" to narzędzie stworzone w celu anotacji podpowiedzi i haseł krzyżówkowych pod względem ich jakości. Te dane zostaną następnie wykorzystane do utworzenia klasyfikatora NLP, który będzie służył do oczyszczenia bazy danych haseł projektu Platyrhyncos.
+            </p>
+            <p>
+                Projekt wykorzystuje jedynie bazę danych Supabase (ze względu na bibliotekę przeznaczoną dla przeglądarek webowych) oraz hosting stron statycznych przez GitHub Pages. Zapraszamy do kontaktu przez <a href="https://github.com/letterfowl/raven/issues">GitHub Issues</a>, jeśli chcecie wykorzystać to rozwiązanie :)
+            </p>
+        </article>
+    </section>
 </body>
 
 </html>

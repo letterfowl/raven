@@ -7,11 +7,12 @@ const c_stack = document.querySelector('ul')
 // An instance of the Stack is used to attach event listeners.
 const stack = Swing.Stack();
 const db = supabase.createClient(
-        'https://aiqhvxquehfxwsbsgppz.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpcWh2eHF1ZWhmeHdzYnNncHB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzAyNDIyMzksImV4cCI6MTk4NTgxODIzOX0.GiUtg3AXI4T1_c34L8-sw6ycWuzDpTjVYgzgxHWKEog'
-    )
+    'https://aiqhvxquehfxwsbsgppz.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpcWh2eHF1ZWhmeHdzYnNncHB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzAyNDIyMzksImV4cCI6MTk4NTgxODIzOX0.GiUtg3AXI4T1_c34L8-sw6ycWuzDpTjVYgzgxHWKEog'
+)
 
-const user = window.prompt("User:", 'anon')
+var dry_run = false;
+const user = dry_run ? 'test' : window.prompt("User:", 'anon');
 
 async function genCard(am, start) {
     const { data, error } = await db.rpc('get_next', {am, start})
@@ -37,14 +38,16 @@ stack.on('throwout', async (event) => {
 
     console.log('out ' + (event.throwDirection == Swing.Direction.LEFT ? 'left' : 'right'));
     event.target.parentNode.removeChild(event.target);
-    const { error } = await db
-        .from('decisions').insert({
-            word: event.target.dataset.wordId,
-            is_good: event.throwDirection == Swing.Direction.RIGHT,
-            annotator: user
-        })
-    if (error) {
-        console.error(error);
+    if (!dry_run) {
+        const { error } = await db
+            .from('decisions').insert({
+                word: event.target.dataset.wordId,
+                is_good: event.throwDirection == Swing.Direction.RIGHT,
+                annotator: user
+            })
+        if (error) {
+            console.error(error);
+        }
     }
     genCard(1, parseInt(event.target.dataset.wordId)+2);
 });
