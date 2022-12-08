@@ -11,7 +11,7 @@ const db = supabase.createClient(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpcWh2eHF1ZWhmeHdzYnNncHB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzAyNDIyMzksImV4cCI6MTk4NTgxODIzOX0.GiUtg3AXI4T1_c34L8-sw6ycWuzDpTjVYgzgxHWKEog'
 )
 
-var dry_run = false;
+var dry_run = window.location.href.endsWith('test.html')
 const user = dry_run ? 'test' : window.prompt("User:", 'anon');
 
 async function genCard(am, start) {
