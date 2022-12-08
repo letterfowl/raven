@@ -21,7 +21,7 @@ async function genCard(am, start) {
     var c_element;
     data.forEach((item) => {
         c_element = document.createElement("li")
-        c_element.textContent = `${item.word} - ${item.hint}`
+        c_element.innerHTML = `<header>${item.word}</header><p>${item.hint}</p>`
         c_element.dataset.wordId = item.id
         c_stack.prepend(c_element)
         stack.createCard(c_element, true)
