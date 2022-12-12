@@ -11,16 +11,19 @@ const db = supabase.createClient(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpcWh2eHF1ZWhmeHdzYnNncHB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzAyNDIyMzksImV4cCI6MTk4NTgxODIzOX0.GiUtg3AXI4T1_c34L8-sw6ycWuzDpTjVYgzgxHWKEog'
 )
 
-var dry_run = window.location.href.endsWith('test.html')
+const dry_run = window.location.href.endsWith('test.html')
 const user = dry_run ? 'test' : window.prompt("User:", 'anon');
 
-async function genCard(am, start) {
-    const { data, error } = await db.rpc('get_next', {am, start})
+var max_id = 0;
+
+async function genCard(am) {
+    const { data, error } = await db.rpc('get_next', { am, start:max_id })
     if (error) {
         console.error(error);
     }
     var c_element;
     data.forEach((item) => {
+        max_id = parseInt(item.id)>max_id ? parseInt(item.id) : max_id
         c_element = document.createElement("li")
         c_element.innerHTML = `<header>${item.word}</header><p>${item.hint}</p>`
         c_element.dataset.wordId = item.id
@@ -29,7 +32,7 @@ async function genCard(am, start) {
     })
 }
 
-genCard(3, 0);
+genCard(3);
 
 // Add event listener for when a card is thrown out of the stack.
 stack.on('throwout', async (event) => {
@@ -49,7 +52,7 @@ stack.on('throwout', async (event) => {
             console.error(error);
         }
     }
-    genCard(1, parseInt(event.target.dataset.wordId)+2);
+    genCard(1);
 });
 
 // Add event listener for when a card is thrown in the stack, including the spring back into place effect.
